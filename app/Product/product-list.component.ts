@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'; 
  import{ProductService} from './products.service'
+import { IProduct } from './product';
  
  @Component({ 
    selector: 'product-list-app', 
@@ -13,12 +14,14 @@ import { Component } from '@angular/core';
    imageMargin:number=2;
    showImage:boolean=false;
 
-   filteredProduct:Iproduct;
+   filteredProduct:IProduct;
    _listFilter:string='Garden Cart';
+
+   products:IProduct[];
 
 constructor(private _productService : ProductService)
 {
-  this.filteredProduct=this._productService.getProducts();
+ // this.filteredProduct=this._productService.getProducts();
 }
 
 toggleImage():void{
@@ -34,6 +37,15 @@ set listFilter(value:string) {
   this.filteredProduct=this.performFilter(this._listFilter);
   console.log(value);
 
+}
+
+ngOnInit(): void {
+  this._productService.getProducts()
+  .subscribe(products => {
+    this.products= products,
+    this.filteredProduct = this.products;
+  },
+  error => this.errorMessage= <any>error);
 }
 
 performFilter(filterBy: string): IProduct[] {
