@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { IProduct } from './product';
  
  @Component({ 
-   selector: 'product-list-app', 
+   //selector: 'product-list-app', 
    templateUrl: './app/Product/product-list.component.html',
    providers: [ProductService]
  }) 
